@@ -7,7 +7,6 @@ export type FilterOption = 'all' | 'active' | 'returned' | 'overdue';
 export interface GetLentItemsParams {
   sortBy?: SortOption;
   filterBy?: FilterOption;
-  searchQuery?: string;
 }
 
 export interface IGetLentItemsUseCase {
@@ -34,17 +33,6 @@ export class GetLentItemsUseCase implements IGetLentItemsUseCase {
         break;
       default:
         items = await this.lentItemRepository.getAll();
-    }
-
-    // Apply search filter
-    if (params?.searchQuery) {
-      const query = params.searchQuery.toLowerCase();
-      items = items.filter(
-        item =>
-          item.itemName.toLowerCase().includes(query) ||
-          item.borrowerName.toLowerCase().includes(query) ||
-          item.notes?.toLowerCase().includes(query)
-      );
     }
 
     // Sort items

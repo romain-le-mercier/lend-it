@@ -8,17 +8,22 @@ import {
   Alert,
   Platform,
 } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { createStyles } from '@/utils/theme';
 import { useLentItems } from '@/presentation/hooks/useLentItems';
 import { LentItemCard } from '@/presentation/components/common/LentItemCard';
 import { Button } from '@/presentation/components/common/Button';
-import { SearchBar } from '@/presentation/components/common/SearchBar';
 import { FilterBar } from '@/presentation/components/common/FilterBar';
 import { Header } from '@/presentation/components/common/Header';
 import { AddItemForm } from '@/presentation/components/screens/AddItemForm';
 import { ILentItem } from '@/domain/entities/LentItem';
+import { RootStackParamList } from '../../App';
+
+type NavigationProp = NativeStackNavigationProp<RootStackParamList, 'Home'>;
 
 export const HomeScreen: React.FC = () => {
+  const navigation = useNavigation<NavigationProp>();
   const [showAddForm, setShowAddForm] = useState(false);
   const {
     items,
@@ -28,8 +33,6 @@ export const HomeScreen: React.FC = () => {
     setSortBy,
     filterBy,
     setFilterBy,
-    searchQuery,
-    setSearchQuery,
     markAsReturned,
     refresh,
   } = useLentItems();
@@ -62,9 +65,8 @@ export const HomeScreen: React.FC = () => {
     <LentItemCard
       item={item}
       onPress={() => {
-        // TODO: Navigate to item details
+        navigation.navigate('ItemDetail', { item });
       }}
-      onMarkReturned={handleMarkReturned}
     />
   );
 
@@ -72,19 +74,15 @@ export const HomeScreen: React.FC = () => {
     <View style={styles.emptyContainer}>
       <Text style={styles.emptyTitle}>No items found</Text>
       <Text style={styles.emptyMessage}>
-        {searchQuery
-          ? 'Try adjusting your search or filters'
-          : 'Start by adding your first item'}
+        Start by adding your first item
       </Text>
-      {!searchQuery ? (
-        <Button
-          variant="primary"
-          onPress={() => setShowAddForm(true)}
-          style={styles.emptyButton}
-        >
-          Add Your First Item
-        </Button>
-      ) : null}
+      <Button
+        variant="primary"
+        onPress={() => setShowAddForm(true)}
+        style={styles.emptyButton}
+      >
+        Add Your First Item
+      </Button>
     </View>
   );
 
@@ -107,11 +105,6 @@ export const HomeScreen: React.FC = () => {
       <Header onAddPress={() => setShowAddForm(true)} />
       
       <View style={styles.content}>
-        <SearchBar
-          value={searchQuery}
-          onChangeText={setSearchQuery}
-        />
-        
         <FilterBar
           filterBy={filterBy}
           onFilterChange={setFilterBy}

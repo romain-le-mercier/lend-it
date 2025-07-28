@@ -3,59 +3,23 @@ import {
   View,
   Text,
   TouchableOpacity,
-  Alert,
   Platform,
 } from 'react-native';
 import { format } from 'date-fns';
 import { createStyles } from '@/utils/theme';
 import { StatusBadge } from './StatusBadge';
-import { Button } from './Button';
 import { ILentItem } from '@/domain/entities/LentItem';
 import { Ionicons } from '@expo/vector-icons';
 
 interface LentItemCardProps {
   item: ILentItem;
   onPress: () => void;
-  onMarkReturned: (id: string) => void;
 }
 
 export const LentItemCard: React.FC<LentItemCardProps> = ({
   item,
   onPress,
-  onMarkReturned,
 }) => {
-  const handleMarkReturned = (e?: any) => {
-    // Prevent event bubbling to parent TouchableOpacity
-    if (e) {
-      e.stopPropagation();
-    }
-    console.log('handleMarkReturned called for item:', item.itemName);
-    
-    if (Platform.OS === 'web') {
-      // Use window.confirm for web
-      const confirmed = window.confirm(`Are you sure you want to mark "${item.itemName}" as returned?`);
-      if (confirmed) {
-        console.log('Confirming mark as returned for:', item.id);
-        onMarkReturned(item.id);
-      }
-    } else {
-      // Use Alert for mobile
-      Alert.alert(
-        'Mark as Returned',
-        `Are you sure you want to mark "${item.itemName}" as returned?`,
-        [
-          { text: 'Cancel', style: 'cancel' },
-          {
-            text: 'Yes, Mark Returned',
-            onPress: () => {
-              console.log('Confirming mark as returned for:', item.id);
-              onMarkReturned(item.id);
-            },
-          },
-        ]
-      );
-    }
-  };
 
   return (
     <TouchableOpacity
@@ -107,22 +71,6 @@ export const LentItemCard: React.FC<LentItemCardProps> = ({
         <Text style={styles.notes} numberOfLines={2}>
           {item.notes}
         </Text>
-      ) : null}
-
-      {!item.isReturned ? (
-        <View 
-          style={styles.actionContainer}
-          onStartShouldSetResponder={() => true}
-          onTouchEnd={(e) => e.stopPropagation()}
-        >
-          <Button
-            variant="primary"
-            size="small"
-            onPress={handleMarkReturned}
-          >
-            Mark as Returned
-          </Button>
-        </View>
       ) : null}
     </TouchableOpacity>
   );

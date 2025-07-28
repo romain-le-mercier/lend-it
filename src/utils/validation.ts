@@ -23,3 +23,17 @@ export const createLentItemSchema = yup.object({
   notes: yup.string().trim().optional(),
   itemType: yup.string().oneOf(['lent', 'borrowed'] as const).required('Item type is required'),
 });
+
+export const updateLentItemSchema = yup.object({
+  itemName: yup
+    .string()
+    .trim()
+    .min(2, 'Item name must be at least 2 characters'),
+  borrowerName: yup
+    .string()
+    .trim()
+    .min(2, 'Borrower name must be at least 2 characters'),
+  borrowerContact: yup.string().trim().optional(),
+  expectedReturnDate: yup.date(),
+  notes: yup.string().trim().optional(),
+});

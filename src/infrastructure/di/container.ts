@@ -2,6 +2,7 @@ import { LentItemRepository } from '@/data/repositories/LentItemRepository';
 import { CreateLentItemUseCase } from '@/domain/usecases/CreateLentItemUseCase';
 import { GetLentItemsUseCase } from '@/domain/usecases/GetLentItemsUseCase';
 import { MarkItemReturnedUseCase } from '@/domain/usecases/MarkItemReturnedUseCase';
+import { UpdateLentItemUseCase } from '@/domain/usecases/UpdateLentItemUseCase';
 import { NotificationService } from '@/infrastructure/notifications/NotificationService';
 
 class DIContainer {
@@ -11,6 +12,7 @@ class DIContainer {
   private createLentItemUseCase: CreateLentItemUseCase;
   private getLentItemsUseCase: GetLentItemsUseCase;
   private markItemReturnedUseCase: MarkItemReturnedUseCase;
+  private updateLentItemUseCase: UpdateLentItemUseCase;
   private notificationService: NotificationService;
 
   private constructor() {
@@ -24,6 +26,7 @@ class DIContainer {
     this.createLentItemUseCase = new CreateLentItemUseCase(this.lentItemRepository);
     this.getLentItemsUseCase = new GetLentItemsUseCase(this.lentItemRepository);
     this.markItemReturnedUseCase = new MarkItemReturnedUseCase(this.lentItemRepository);
+    this.updateLentItemUseCase = new UpdateLentItemUseCase(this.lentItemRepository);
   }
 
   static getInstance(): DIContainer {
@@ -49,6 +52,10 @@ class DIContainer {
 
   getMarkItemReturnedUseCase(): MarkItemReturnedUseCase {
     return this.markItemReturnedUseCase;
+  }
+
+  getUpdateLentItemUseCase(): UpdateLentItemUseCase {
+    return this.updateLentItemUseCase;
   }
 
   // Service getters

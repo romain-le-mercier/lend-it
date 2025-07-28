@@ -9,7 +9,6 @@ export const useLentItems = () => {
   const [error, setError] = useState<string | null>(null);
   const [sortBy, setSortBy] = useState<SortOption>('dueDate');
   const [filterBy, setFilterBy] = useState<FilterOption>('active');
-  const [searchQuery, setSearchQuery] = useState('');
 
   const getLentItemsUseCase = container.getGetLentItemsUseCase();
   const markItemReturnedUseCase = container.getMarkItemReturnedUseCase();
@@ -21,7 +20,6 @@ export const useLentItems = () => {
       const params: GetLentItemsParams = {
         sortBy,
         filterBy,
-        searchQuery: searchQuery.trim() || undefined,
       };
       const loadedItems = await getLentItemsUseCase.execute(params);
       setItems(loadedItems);
@@ -30,7 +28,7 @@ export const useLentItems = () => {
     } finally {
       setLoading(false);
     }
-  }, [sortBy, filterBy, searchQuery]);
+  }, [sortBy, filterBy]);
 
   const markAsReturned = async (itemId: string) => {
     try {
@@ -61,8 +59,6 @@ export const useLentItems = () => {
     setSortBy,
     filterBy,
     setFilterBy,
-    searchQuery,
-    setSearchQuery,
     markAsReturned,
     refresh,
   };
