@@ -1,0 +1,242 @@
+# React Native Lending Tracker - Cursor Rules
+
+## Project Overview
+A mobile-first React Native app for tracking lent items to friends with reminders and return validation. Built with TypeScript, following SOLID principles and clean architecture patterns.
+
+## Architecture Principles
+
+### SOLID Principles
+- **Single Responsibility**: Each class/function should have one reason to change
+- **Open/Closed**: Open for extension, closed for modification
+- **Liskov Substitution**: Derived classes must be substitutable for base classes
+- **Interface Segregation**: Clients shouldn't depend on interfaces they don't use
+- **Dependency Inversion**: Depend on abstractions, not concretions
+
+### Clean Architecture Layers
+```
+src/
+├── presentation/     # UI Components, Screens, Hooks
+├── domain/          # Business Logic, Entities, Use Cases
+├── data/            # Data Sources, Repositories Implementation
+└── infrastructure/  # External Services, Database, Notifications
+```
+
+## Code Standards
+
+### TypeScript
+- Use strict TypeScript configuration
+- Define explicit interfaces for all data structures
+- Use proper generics and utility types
+- Avoid `any` type - use `unknown` when needed
+- Use const assertions where appropriate
+
+### React Native Specific
+- Use functional components with hooks
+- Implement proper error boundaries
+- Use React.memo for performance optimization when needed
+- Follow React Native naming conventions
+- Use proper prop types and default props
+
+### State Management
+- Use React Context for global state
+- Implement custom hooks for business logic
+- Use useReducer for complex state logic
+- Keep state as close to components as possible
+- Implement proper state normalization
+
+## File Structure and Naming
+
+### Directory Structure
+```
+src/
+├── components/
+│   ├── common/          # Reusable UI components
+│   └── screens/         # Screen-specific components
+├── screens/             # Main screen components
+├── hooks/               # Custom hooks
+├── services/            # Business logic services
+├── repositories/        # Data access layer
+├── models/              # TypeScript interfaces/types
+├── utils/               # Utility functions
+├── constants/           # App constants
+└── navigation/          # Navigation configuration
+```
+
+### Naming Conventions
+- **Components**: PascalCase (e.g., `LentItemCard.tsx`)
+- **Hooks**: camelCase starting with 'use' (e.g., `useLentItems.ts`)
+- **Services**: PascalCase ending with 'Service' (e.g., `NotificationService.ts`)
+- **Interfaces**: PascalCase starting with 'I' (e.g., `ILentItem.ts`)
+- **Types**: PascalCase ending with 'Type' (e.g., `LentItemType.ts`)
+- **Constants**: UPPER_SNAKE_CASE (e.g., `API_ENDPOINTS.ts`)
+
+## Database and ORM
+
+### Use WatermelonDB for Local Storage
+- Implement reactive database with proper relations
+- Use decorators for model definitions
+- Implement proper database migrations
+- Use database observers for real-time updates
+- Implement proper indexing for performance
+
+### Repository Pattern
+```typescript
+interface ILentItemRepository {
+  getAll(): Promise<LentItem[]>;
+  getById(id: string): Promise<LentItem | null>;
+  create(item: CreateLentItemDto): Promise<LentItem>;
+  update(id: string, item: UpdateLentItemDto): Promise<LentItem>;
+  delete(id: string): Promise<void>;
+}
+```
+
+## Component Guidelines
+
+### Component Structure
+```typescript
+interface Props {
+  // Define all props with proper types
+}
+
+const ComponentName: React.FC<Props> = ({ prop1, prop2 }) => {
+  // 1. Hooks
+  // 2. Event handlers
+  // 3. Render helpers
+  // 4. Return JSX
+};
+
+export default React.memo(ComponentName);
+```
+
+### Custom Hooks
+- Extract business logic into custom hooks
+- Use proper dependency arrays
+- Implement cleanup functions
+- Return objects instead of arrays when returning multiple values
+- Use proper TypeScript return types
+
+## Error Handling
+
+### Implementation Strategy
+- Use Error Boundaries for React component errors
+- Implement global error handling service
+- Use proper try/catch blocks in async operations
+- Log errors appropriately (avoid console.log in production)
+- Provide user-friendly error messages
+
+### Error Types
+```typescript
+class AppError extends Error {
+  constructor(
+    message: string,
+    public code: string,
+    public severity: 'low' | 'medium' | 'high'
+  ) {
+    super(message);
+  }
+}
+```
+
+## Performance Guidelines
+
+### Optimization Strategies
+- Use React.memo for expensive components
+- Implement proper list virtualization for large datasets
+- Use useMemo and useCallback appropriately
+- Implement image lazy loading
+- Use proper key props in lists
+- Implement proper debouncing for search/input
+
+### Bundle Size
+- Use tree shaking
+- Implement code splitting where appropriate
+- Optimize images and assets
+- Use proper import statements (avoid barrel exports)
+
+## Testing Strategy
+
+### Testing Levels
+- **Unit Tests**: Individual functions and components
+- **Integration Tests**: Component interactions
+- **E2E Tests**: Full user workflows
+
+### Testing Tools
+- Jest for unit testing
+- React Native Testing Library for component testing
+- Detox for E2E testing
+- MSW for API mocking
+
+### Testing Guidelines
+- Write tests first for critical business logic
+- Use descriptive test names
+- Test behavior, not implementation
+- Mock external dependencies
+- Achieve 80%+ code coverage for critical paths
+
+## Security Best Practices
+
+### Data Protection
+- Encrypt sensitive data using react-native-keychain
+- Validate all user inputs
+- Implement proper authentication if adding social features
+- Use HTTPS for any network requests
+- Implement proper data sanitization
+
+## Performance Monitoring
+
+### Metrics to Track
+- App startup time
+- Screen transition performance
+- Memory usage
+- Crash rates
+- User engagement metrics
+
+## Code Quality
+
+### Linting and Formatting
+- Use ESLint with TypeScript rules
+- Use Prettier for code formatting
+- Implement pre-commit hooks with Husky
+- Use SonarQube or similar for code quality metrics
+
+### Code Review Guidelines
+- Review for SOLID principle adherence
+- Check for proper error handling
+- Verify TypeScript usage
+- Ensure proper testing coverage
+- Review for security vulnerabilities
+
+## Git Practices
+
+### Commit Messages
+- Use conventional commits format
+- Write descriptive commit messages
+- Reference issues/tickets when applicable
+
+### Branch Strategy
+- Use feature branches
+- Implement proper code review process
+- Use semantic versioning for releases
+
+## Documentation
+
+### Code Documentation
+- Document complex business logic
+- Use JSDoc for public APIs
+- Maintain README with setup instructions
+- Document architecture decisions
+
+### API Documentation
+- Document all repository interfaces
+- Provide usage examples
+- Document error scenarios
+
+## Deployment
+
+### Build Configuration
+- Use environment-specific configurations
+- Implement proper build optimization
+- Use proper signing for production builds
+- Implement continuous integration/deployment
+
+Remember: Code should be readable, maintainable, and testable. When in doubt, favor explicit code over clever code.
