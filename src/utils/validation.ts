@@ -1,5 +1,5 @@
 import * as yup from 'yup';
-import i18n from '@/i18n';
+import { i18n } from '@/i18n';
 
 export const createLentItemSchema = yup.object({
   itemName: yup
@@ -16,7 +16,16 @@ export const createLentItemSchema = yup.object({
   lentDate: yup
     .date()
     .required(() => i18n.t('validation.required', { field: i18n.t('itemForm.fields.lentDate') }))
-    .max(new Date(), () => i18n.t('validation.futureDate', { field: i18n.t('itemForm.fields.lentDate') })),
+    .test(
+      'not-future',
+      () => i18n.t('validation.futureDate', { field: i18n.t('itemForm.fields.lentDate') }),
+      function(value) {
+        if (!value) return true;
+        const today = new Date();
+        today.setHours(23, 59, 59, 999);
+        return value <= today;
+      }
+    ),
   expectedReturnDate: yup
     .date()
     .required(() => i18n.t('validation.required', { field: i18n.t('itemForm.fields.expectedReturn') }))

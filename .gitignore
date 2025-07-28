@@ -1,5 +1,6 @@
 .idea/
 
+.expo/web/cache/
 
 /tmp
 /out-tsc

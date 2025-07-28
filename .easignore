@@ -1,0 +1,9 @@
+# .easignore
+node_modules/
+.expo/
+.git/
+docker/
+.idea/
+
+# Don't ignore assets
+!assets/

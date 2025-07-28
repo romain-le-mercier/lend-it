@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import {
   View,
   FlatList,
@@ -8,8 +8,9 @@ import {
   Alert,
   Platform,
 } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { useTranslation } from 'react-i18next';
 import { createStyles } from '@/utils/theme';
 import { useLentItems } from '@/presentation/hooks/useLentItems';
 import { LentItemCard } from '@/presentation/components/common/LentItemCard';
@@ -24,6 +25,7 @@ type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
 export const HomeScreen: React.FC = () => {
   const navigation = useNavigation<NavigationProp>();
+  const { t } = useTranslation();
   const [showAddForm, setShowAddForm] = useState(false);
   const {
     items,
@@ -61,6 +63,13 @@ export const HomeScreen: React.FC = () => {
     refresh();
   };
 
+  // Refresh the list when screen comes into focus
+  useFocusEffect(
+    useCallback(() => {
+      refresh();
+    }, [refresh])
+  );
+
   const renderItem = ({ item }: { item: ILentItem }) => (
     <LentItemCard
       item={item}
@@ -72,16 +81,16 @@ export const HomeScreen: React.FC = () => {
 
   const renderEmpty = () => (
     <View style={styles.emptyContainer}>
-      <Text style={styles.emptyTitle}>No items found</Text>
+      <Text style={styles.emptyTitle}>{t('home.noItems')}</Text>
       <Text style={styles.emptyMessage}>
-        Start by adding your first item
+        {t('home.startAdding')}
       </Text>
       <Button
         variant="primary"
         onPress={() => setShowAddForm(true)}
         style={styles.emptyButton}
       >
-        Add Your First Item
+        {t('home.addFirstItem')}
       </Button>
     </View>
   );
@@ -93,7 +102,7 @@ export const HomeScreen: React.FC = () => {
         <View style={styles.errorContainer}>
           <Text style={styles.errorText}>{error}</Text>
           <Button variant="primary" onPress={refresh}>
-            Try Again
+            {t('home.tryAgain')}
           </Button>
         </View>
       </View>

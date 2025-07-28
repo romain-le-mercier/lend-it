@@ -30,12 +30,6 @@ npm run typecheck
 
 # Lint code
 npm run lint
-
-# Docker development
-npm run docker:dev
-
-# Docker production build
-npm run docker:build && npm run docker:prod
 ```
 
 ### Testing Commands
@@ -123,24 +117,6 @@ interface LentItem {
 - Automatic scheduling 1 day after due date
 - Weekly reminders for overdue items
 - Using Expo Notifications API
-
-## Docker Configuration
-
-### Port Detection
-The app includes automatic port detection starting from port 3847:
-- Script: `docker/port-detector.sh`
-- Updates `.env` with discovered port
-- Falls back through ports 3847-3900
-
-### Docker Commands
-```bash
-# Development with hot reload
-docker-compose -f docker/docker-compose.yml up
-
-# Production build
-docker build -f docker/Dockerfile -t lending-tracker .
-docker-compose -f docker/docker-compose.prod.yml up
-```
 
 ## Testing Strategy
 

@@ -31,7 +31,6 @@ src/
 
 - Node.js (v18 or higher)
 - npm or yarn
-- Docker and Docker Compose (for containerized deployment)
 - Expo CLI: `npm install -g expo-cli`
 
 ### Installation
@@ -49,8 +48,6 @@ npm install
 
 ### Running the Application
 
-#### Option 1: Local Development
-
 For Web:
 ```bash
 npm run web
@@ -66,35 +63,9 @@ For Android:
 npm run android
 ```
 
-#### Option 2: Docker Development
-
-The application includes automatic port detection starting from port 3847:
-
-```bash
-# Run with Docker Compose
-npm run docker:dev
-
-# Or manually
-docker-compose -f docker/docker-compose.yml up
-```
-
-The port detector will automatically find an available port starting from 3847 and configure the application accordingly.
-
-#### Option 3: Docker Production
-
-Build and run the production container:
-
-```bash
-# Build the Docker image
-npm run docker:build
-
-# Run in production mode
-npm run docker:prod
-```
-
 ### Accessing the Application
 
-- **Web**: Open http://localhost:3847 (or the port shown in console)
+- **Web**: Open http://localhost:19006 (or the port shown in console)
 - **Mobile**: Use the Expo Go app and scan the QR code
 - **Development**: The app will hot-reload on file changes
 
@@ -134,10 +105,6 @@ lending-tracker/
 │   │   └── notifications/    # Push notification service
 │   ├── constants/            # App constants and theme
 │   └── utils/                # Utility functions
-├── docker/                   # Docker configuration
-│   ├── Dockerfile            # Multi-stage Dockerfile
-│   ├── docker-compose.yml    # Development compose
-│   └── port-detector.sh      # Port detection script
 └── tests/                    # Test files
 ```
 
@@ -187,11 +154,11 @@ npm run test:coverage
 
 ### Port Already in Use
 
-The application automatically detects available ports starting from 3847. If you encounter port issues:
+If you encounter port issues:
 
 1. Check the console output for the assigned port
-2. The port detector will find the next available port automatically
-3. Check `.env` file for the PORT variable
+2. Expo will typically use port 19006 for web
+3. Kill any processes using the port or let Expo choose another
 
 ### Database Issues
 

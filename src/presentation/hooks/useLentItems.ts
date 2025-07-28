@@ -43,9 +43,9 @@ export const useLentItems = () => {
     }
   };
 
-  const refresh = () => {
+  const refresh = useCallback(() => {
     loadItems();
-  };
+  }, [loadItems]);
 
   useEffect(() => {
     loadItems();
