@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Image, Text, Platform } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useTranslation } from 'react-i18next';
 import { createStyles } from '@/utils/theme';
 import { Button } from './Button';
 
@@ -11,6 +12,7 @@ interface HeaderProps {
 
 export const Header: React.FC<HeaderProps> = ({ onAddPress, showAddButton = true }) => {
   const insets = useSafeAreaInsets();
+  const { t } = useTranslation();
 
   return (
     <View style={[styles.container, { paddingTop: insets.top + 8 }]}>
@@ -21,7 +23,7 @@ export const Header: React.FC<HeaderProps> = ({ onAddPress, showAddButton = true
             style={styles.logo}
             resizeMode="contain"
           />
-          <Text style={styles.title}>Lend It</Text>
+          <Text style={styles.title}>{t('app.name')}</Text>
         </View>
         {showAddButton && (
           <Button
@@ -30,7 +32,7 @@ export const Header: React.FC<HeaderProps> = ({ onAddPress, showAddButton = true
             onPress={onAddPress}
             style={styles.addButton}
           >
-            + Add
+            {t('home.addItem')}
           </Button>
         )}
       </View>

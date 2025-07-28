@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
-import { format } from 'date-fns';
+import { format, DATE_FORMATS } from '@/utils/dateFormat';
 import { createStyles } from '@/utils/theme';
 
 interface WebDateInputProps {
@@ -25,12 +25,12 @@ export const WebDateInput: React.FC<WebDateInputProps> = ({
   useEffect(() => {
     if (inputRef.current) {
       inputRef.current.type = 'date';
-      inputRef.current.value = format(value, 'yyyy-MM-dd');
+      inputRef.current.value = format(value, DATE_FORMATS.INPUT);
       if (minimumDate) {
-        inputRef.current.min = format(minimumDate, 'yyyy-MM-dd');
+        inputRef.current.min = format(minimumDate, DATE_FORMATS.INPUT);
       }
       if (maximumDate) {
-        inputRef.current.max = format(maximumDate, 'yyyy-MM-dd');
+        inputRef.current.max = format(maximumDate, DATE_FORMATS.INPUT);
       }
     }
   }, [value, minimumDate, maximumDate]);
@@ -64,7 +64,7 @@ export const WebDateInput: React.FC<WebDateInputProps> = ({
         onPress={handlePress}
         activeOpacity={0.7}
       >
-        <Text style={styles.dateText}>{format(value, 'MMM dd, yyyy')}</Text>
+        <Text style={styles.dateText}>{format(value, DATE_FORMATS.MEDIUM)}</Text>
         <input
           ref={inputRef}
           style={{

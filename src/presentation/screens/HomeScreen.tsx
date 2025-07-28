@@ -20,7 +20,7 @@ import { AddItemForm } from '@/presentation/components/screens/AddItemForm';
 import { ILentItem } from '@/domain/entities/LentItem';
 import { RootStackParamList } from '../../App';
 
-type NavigationProp = NativeStackNavigationProp<RootStackParamList, 'Home'>;
+type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
 export const HomeScreen: React.FC = () => {
   const navigation = useNavigation<NavigationProp>();

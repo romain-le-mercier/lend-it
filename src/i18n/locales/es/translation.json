@@ -1,0 +1,113 @@
+{
+  "app": {
+    "name": "Lend It"
+  },
+  "common": {
+    "cancel": "Cancelar",
+    "save": "Guardar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "close": "Cerrar",
+    "loading": "Cargando...",
+    "error": "Error",
+    "success": "Éxito",
+    "confirm": "Confirmar",
+    "yes": "Sí",
+    "no": "No",
+    "by": "por",
+    "to": "a"
+  },
+  "home": {
+    "title": "Lend It",
+    "addItem": "+ Añadir",
+    "noItems": "No se encontraron artículos",
+    "startAdding": "Comienza añadiendo tu primer artículo",
+    "addFirstItem": "Añadir tu primer artículo",
+    "tryAgain": "Intentar de nuevo",
+    "filters": {
+      "all": "Todo",
+      "active": "Activo",
+      "overdue": "Vencido",
+      "returned": "Devuelto"
+    }
+  },
+  "itemForm": {
+    "addTitle": "Añadir nuevo artículo",
+    "editTitle": "Editar artículo",
+    "lending": "Estoy prestando",
+    "borrowing": "Estoy tomando prestado",
+    "itemLent": "Artículo que presto",
+    "itemBorrowed": "Artículo que tomo prestado",
+    "fields": {
+      "itemName": "Nombre del artículo",
+      "itemNamePlaceholder": "¿Qué estás {{action}}?",
+      "borrowerName": "Nombre del prestatario",
+      "lenderName": "Nombre del prestamista",
+      "borrowerPlaceholder": "¿Quién toma prestado?",
+      "lenderPlaceholder": "¿De quién tomas prestado?",
+      "contact": "Contacto (Opcional)",
+      "contactPlaceholder": "Correo electrónico o número de teléfono",
+      "lentDate": "Fecha de préstamo",
+      "borrowedDate": "Fecha de préstamo",
+      "expectedReturn": "Fecha de devolución esperada",
+      "notes": "Notas (Opcional)",
+      "notesPlaceholder": "Detalles adicionales"
+    },
+    "actions": {
+      "addItem": "Añadir artículo",
+      "saveChanges": "Guardar cambios"
+    }
+  },
+  "itemDetail": {
+    "title": "Detalles del artículo",
+    "itemLent": "Artículo prestado",
+    "itemBorrowed": "Artículo tomado prestado",
+    "borrower": "Prestatario",
+    "lender": "Prestamista",
+    "contact": "Contacto",
+    "lentDate": "Fecha de préstamo",
+    "borrowedDate": "Fecha de préstamo",
+    "expectedReturn": "Devolución esperada",
+    "actualReturn": "Devolución real",
+    "notes": "Notas",
+    "actions": {
+      "markReturned": "Marcar como devuelto",
+      "deleteItem": "Eliminar artículo",
+      "confirmReturn": "Confirmar devolución",
+      "confirmDelete": "Confirmar eliminación",
+      "deleteMessage": "¿Estás seguro de que quieres eliminar \"{{itemName}}\"?",
+      "returnMessage": "¿Marcar \"{{itemName}}\" como devuelto {{direction}} {{person}}?"
+    }
+  },
+  "settings": {
+    "title": "Configuración",
+    "language": "Idioma",
+    "selectLanguage": "Seleccionar idioma",
+    "languages": {
+      "en": "English",
+      "fr": "Français",
+      "de": "Deutsch",
+      "es": "Español",
+      "nl": "Nederlands"
+    }
+  },
+  "status": {
+    "active": "Activo",
+    "overdue": "Vencido",
+    "dueSoon": "Vence pronto",
+    "returned": "Devuelto"
+  },
+  "validation": {
+    "required": "{{field}} es requerido",
+    "minLength": "{{field}} debe tener al menos {{min}} caracteres",
+    "futureDate": "{{field}} no puede estar en el futuro",
+    "afterDate": "{{field}} debe ser después de {{date}}"
+  },
+  "messages": {
+    "itemAdded": "¡El artículo se ha añadido con éxito!",
+    "itemUpdated": "¡El artículo se ha actualizado con éxito!",
+    "itemDeleted": "¡El artículo se ha eliminado con éxito!",
+    "itemReturned": "¡El artículo se ha marcado como devuelto!",
+    "errorGeneric": "Algo salió mal. Por favor, inténtalo de nuevo."
+  }
+}

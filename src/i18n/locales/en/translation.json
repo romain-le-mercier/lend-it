@@ -1,0 +1,113 @@
+{
+  "app": {
+    "name": "Lend It"
+  },
+  "common": {
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "close": "Close",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "confirm": "Confirm",
+    "yes": "Yes",
+    "no": "No",
+    "by": "by",
+    "to": "to"
+  },
+  "home": {
+    "title": "Lend It",
+    "addItem": "+ Add",
+    "noItems": "No items found",
+    "startAdding": "Start by adding your first item",
+    "addFirstItem": "Add Your First Item",
+    "tryAgain": "Try Again",
+    "filters": {
+      "all": "All",
+      "active": "Active",
+      "overdue": "Overdue",
+      "returned": "Returned"
+    }
+  },
+  "itemForm": {
+    "addTitle": "Add New Item",
+    "editTitle": "Edit Item",
+    "lending": "I'm Lending",
+    "borrowing": "I'm Borrowing",
+    "itemLent": "Item I'm Lending",
+    "itemBorrowed": "Item I'm Borrowing",
+    "fields": {
+      "itemName": "Item Name",
+      "itemNamePlaceholder": "What are you {{action}}?",
+      "borrowerName": "Borrower Name",
+      "lenderName": "Lender Name",
+      "borrowerPlaceholder": "Who is borrowing?",
+      "lenderPlaceholder": "Who are you borrowing from?",
+      "contact": "Contact (Optional)",
+      "contactPlaceholder": "Email or phone number",
+      "lentDate": "Lent Date",
+      "borrowedDate": "Borrowed Date",
+      "expectedReturn": "Expected Return Date",
+      "notes": "Notes (Optional)",
+      "notesPlaceholder": "Any additional details"
+    },
+    "actions": {
+      "addItem": "Add Item",
+      "saveChanges": "Save Changes"
+    }
+  },
+  "itemDetail": {
+    "title": "Item Details",
+    "itemLent": "Item Lent",
+    "itemBorrowed": "Item Borrowed",
+    "borrower": "Borrower",
+    "lender": "Lender",
+    "contact": "Contact",
+    "lentDate": "Lent Date",
+    "borrowedDate": "Borrowed Date",
+    "expectedReturn": "Expected Return",
+    "actualReturn": "Actual Return",
+    "notes": "Notes",
+    "actions": {
+      "markReturned": "Mark as Returned",
+      "deleteItem": "Delete Item",
+      "confirmReturn": "Confirm Return",
+      "confirmDelete": "Confirm Delete",
+      "deleteMessage": "Are you sure you want to delete \"{{itemName}}\"?",
+      "returnMessage": "Mark \"{{itemName}}\" as returned {{direction}} {{person}}?"
+    }
+  },
+  "settings": {
+    "title": "Settings",
+    "language": "Language",
+    "selectLanguage": "Select Language",
+    "languages": {
+      "en": "English",
+      "fr": "Français",
+      "de": "Deutsch",
+      "es": "Español",
+      "nl": "Nederlands"
+    }
+  },
+  "status": {
+    "active": "Active",
+    "overdue": "Overdue",
+    "dueSoon": "Due Soon",
+    "returned": "Returned"
+  },
+  "validation": {
+    "required": "{{field}} is required",
+    "minLength": "{{field}} must be at least {{min}} characters",
+    "futureDate": "{{field}} cannot be in the future",
+    "afterDate": "{{field}} must be after {{date}}"
+  },
+  "messages": {
+    "itemAdded": "Item has been added successfully!",
+    "itemUpdated": "Item has been updated successfully!",
+    "itemDeleted": "Item has been deleted successfully!",
+    "itemReturned": "Item has been marked as returned!",
+    "errorGeneric": "Something went wrong. Please try again."
+  }
+}

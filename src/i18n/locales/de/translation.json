@@ -1,0 +1,113 @@
+{
+  "app": {
+    "name": "Lend It"
+  },
+  "common": {
+    "cancel": "Abbrechen",
+    "save": "Speichern",
+    "delete": "Löschen",
+    "edit": "Bearbeiten",
+    "close": "Schließen",
+    "loading": "Laden...",
+    "error": "Fehler",
+    "success": "Erfolg",
+    "confirm": "Bestätigen",
+    "yes": "Ja",
+    "no": "Nein",
+    "by": "von",
+    "to": "an"
+  },
+  "home": {
+    "title": "Lend It",
+    "addItem": "+ Hinzufügen",
+    "noItems": "Keine Artikel gefunden",
+    "startAdding": "Beginnen Sie mit dem Hinzufügen Ihres ersten Artikels",
+    "addFirstItem": "Ersten Artikel hinzufügen",
+    "tryAgain": "Erneut versuchen",
+    "filters": {
+      "all": "Alle",
+      "active": "Aktiv",
+      "overdue": "Überfällig",
+      "returned": "Zurückgegeben"
+    }
+  },
+  "itemForm": {
+    "addTitle": "Neuen Artikel hinzufügen",
+    "editTitle": "Artikel bearbeiten",
+    "lending": "Ich verleihe",
+    "borrowing": "Ich leihe aus",
+    "itemLent": "Artikel, den ich verleihe",
+    "itemBorrowed": "Artikel, den ich ausleihe",
+    "fields": {
+      "itemName": "Artikelname",
+      "itemNamePlaceholder": "Was {{action}} Sie?",
+      "borrowerName": "Name des Ausleihers",
+      "lenderName": "Name des Verleihers",
+      "borrowerPlaceholder": "Wer leiht aus?",
+      "lenderPlaceholder": "Von wem leihen Sie aus?",
+      "contact": "Kontakt (Optional)",
+      "contactPlaceholder": "E-Mail oder Telefonnummer",
+      "lentDate": "Verleihdatum",
+      "borrowedDate": "Ausleihdatum",
+      "expectedReturn": "Erwartetes Rückgabedatum",
+      "notes": "Notizen (Optional)",
+      "notesPlaceholder": "Zusätzliche Details"
+    },
+    "actions": {
+      "addItem": "Artikel hinzufügen",
+      "saveChanges": "Änderungen speichern"
+    }
+  },
+  "itemDetail": {
+    "title": "Artikeldetails",
+    "itemLent": "Verliehener Artikel",
+    "itemBorrowed": "Ausgeliehener Artikel",
+    "borrower": "Ausleiher",
+    "lender": "Verleiher",
+    "contact": "Kontakt",
+    "lentDate": "Verleihdatum",
+    "borrowedDate": "Ausleihdatum",
+    "expectedReturn": "Erwartete Rückgabe",
+    "actualReturn": "Tatsächliche Rückgabe",
+    "notes": "Notizen",
+    "actions": {
+      "markReturned": "Als zurückgegeben markieren",
+      "deleteItem": "Artikel löschen",
+      "confirmReturn": "Rückgabe bestätigen",
+      "confirmDelete": "Löschen bestätigen",
+      "deleteMessage": "Sind Sie sicher, dass Sie \"{{itemName}}\" löschen möchten?",
+      "returnMessage": "\"{{itemName}}\" als zurückgegeben {{direction}} {{person}} markieren?"
+    }
+  },
+  "settings": {
+    "title": "Einstellungen",
+    "language": "Sprache",
+    "selectLanguage": "Sprache auswählen",
+    "languages": {
+      "en": "English",
+      "fr": "Français",
+      "de": "Deutsch",
+      "es": "Español",
+      "nl": "Nederlands"
+    }
+  },
+  "status": {
+    "active": "Aktiv",
+    "overdue": "Überfällig",
+    "dueSoon": "Bald fällig",
+    "returned": "Zurückgegeben"
+  },
+  "validation": {
+    "required": "{{field}} ist erforderlich",
+    "minLength": "{{field}} muss mindestens {{min}} Zeichen enthalten",
+    "futureDate": "{{field}} kann nicht in der Zukunft liegen",
+    "afterDate": "{{field}} muss nach {{date}} liegen"
+  },
+  "messages": {
+    "itemAdded": "Artikel wurde erfolgreich hinzugefügt!",
+    "itemUpdated": "Artikel wurde erfolgreich aktualisiert!",
+    "itemDeleted": "Artikel wurde erfolgreich gelöscht!",
+    "itemReturned": "Artikel wurde als zurückgegeben markiert!",
+    "errorGeneric": "Etwas ist schief gelaufen. Bitte versuchen Sie es erneut."
+  }
+}

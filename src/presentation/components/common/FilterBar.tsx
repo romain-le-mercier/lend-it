@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, ScrollView, TouchableOpacity, Text } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { createStyles } from '@/utils/theme';
 import { FilterOption } from '@/domain/usecases/GetLentItemsUseCase';
 
@@ -8,17 +9,19 @@ interface FilterBarProps {
   onFilterChange: (filter: FilterOption) => void;
 }
 
-const filterOptions: { value: FilterOption; label: string }[] = [
-  { value: 'all', label: 'All' },
-  { value: 'active', label: 'Active' },
-  { value: 'overdue', label: 'Overdue' },
-  { value: 'returned', label: 'Returned' },
-];
 
 export const FilterBar: React.FC<FilterBarProps> = ({
   filterBy,
   onFilterChange,
 }) => {
+  const { t } = useTranslation();
+  
+  const filterOptions: { value: FilterOption; label: string }[] = [
+    { value: 'all', label: t('home.filters.all') },
+    { value: 'active', label: t('home.filters.active') },
+    { value: 'overdue', label: t('home.filters.overdue') },
+    { value: 'returned', label: t('home.filters.returned') },
+  ];
   return (
     <View style={styles.container}>
       <ScrollView

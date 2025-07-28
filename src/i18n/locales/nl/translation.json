@@ -1,0 +1,113 @@
+{
+  "app": {
+    "name": "Lend It"
+  },
+  "common": {
+    "cancel": "Annuleren",
+    "save": "Opslaan",
+    "delete": "Verwijderen",
+    "edit": "Bewerken",
+    "close": "Sluiten",
+    "loading": "Laden...",
+    "error": "Fout",
+    "success": "Succes",
+    "confirm": "Bevestigen",
+    "yes": "Ja",
+    "no": "Nee",
+    "by": "door",
+    "to": "aan"
+  },
+  "home": {
+    "title": "Lend It",
+    "addItem": "+ Toevoegen",
+    "noItems": "Geen items gevonden",
+    "startAdding": "Begin met het toevoegen van je eerste item",
+    "addFirstItem": "Voeg je eerste item toe",
+    "tryAgain": "Probeer opnieuw",
+    "filters": {
+      "all": "Alle",
+      "active": "Actief",
+      "overdue": "Te laat",
+      "returned": "Teruggebracht"
+    }
+  },
+  "itemForm": {
+    "addTitle": "Nieuw item toevoegen",
+    "editTitle": "Item bewerken",
+    "lending": "Ik leen uit",
+    "borrowing": "Ik leen",
+    "itemLent": "Item dat ik uitleen",
+    "itemBorrowed": "Item dat ik leen",
+    "fields": {
+      "itemName": "Naam van het item",
+      "itemNamePlaceholder": "Wat {{action}} je?",
+      "borrowerName": "Naam van de lener",
+      "lenderName": "Naam van de uitlener",
+      "borrowerPlaceholder": "Wie leent?",
+      "lenderPlaceholder": "Van wie leen je?",
+      "contact": "Contact (Optioneel)",
+      "contactPlaceholder": "E-mail of telefoonnummer",
+      "lentDate": "Uitleendatum",
+      "borrowedDate": "Leendatum",
+      "expectedReturn": "Verwachte teruggavedatum",
+      "notes": "Notities (Optioneel)",
+      "notesPlaceholder": "Extra details"
+    },
+    "actions": {
+      "addItem": "Item toevoegen",
+      "saveChanges": "Wijzigingen opslaan"
+    }
+  },
+  "itemDetail": {
+    "title": "Item details",
+    "itemLent": "Uitgeleend item",
+    "itemBorrowed": "Geleend item",
+    "borrower": "Lener",
+    "lender": "Uitlener",
+    "contact": "Contact",
+    "lentDate": "Uitleendatum",
+    "borrowedDate": "Leendatum",
+    "expectedReturn": "Verwachte teruggave",
+    "actualReturn": "Werkelijke teruggave",
+    "notes": "Notities",
+    "actions": {
+      "markReturned": "Markeer als teruggebracht",
+      "deleteItem": "Item verwijderen",
+      "confirmReturn": "Bevestig teruggave",
+      "confirmDelete": "Bevestig verwijdering",
+      "deleteMessage": "Weet je zeker dat je \"{{itemName}}\" wilt verwijderen?",
+      "returnMessage": "\"{{itemName}}\" markeren als teruggebracht {{direction}} {{person}}?"
+    }
+  },
+  "settings": {
+    "title": "Instellingen",
+    "language": "Taal",
+    "selectLanguage": "Selecteer taal",
+    "languages": {
+      "en": "English",
+      "fr": "Français",
+      "de": "Deutsch",
+      "es": "Español",
+      "nl": "Nederlands"
+    }
+  },
+  "status": {
+    "active": "Actief",
+    "overdue": "Te laat",
+    "dueSoon": "Binnenkort terug",
+    "returned": "Teruggebracht"
+  },
+  "validation": {
+    "required": "{{field}} is verplicht",
+    "minLength": "{{field}} moet minimaal {{min}} tekens bevatten",
+    "futureDate": "{{field}} kan niet in de toekomst liggen",
+    "afterDate": "{{field}} moet na {{date}} zijn"
+  },
+  "messages": {
+    "itemAdded": "Item succesvol toegevoegd!",
+    "itemUpdated": "Item succesvol bijgewerkt!",
+    "itemDeleted": "Item succesvol verwijderd!",
+    "itemReturned": "Item gemarkeerd als teruggebracht!",
+    "errorGeneric": "Er is iets misgegaan. Probeer het opnieuw."
+  }
+}

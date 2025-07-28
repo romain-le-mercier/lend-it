@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useTranslation } from 'react-i18next';
 import { createLentItemSchema } from '@/utils/validation';
 import { Input } from '../common/Input';
 import { DatePicker } from '../common/DatePicker';
@@ -30,6 +31,7 @@ export const AddItemForm: React.FC<AddItemFormProps> = ({
   onCancel,
 }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const { t } = useTranslation();
   const createLentItemUseCase = container.getCreateLentItemUseCase();
 
   const {
@@ -65,17 +67,17 @@ export const AddItemForm: React.FC<AddItemFormProps> = ({
       }
       
       if (Platform.OS === 'web') {
-        console.log('Success: Item has been added successfully!');
+        console.log(t('messages.itemAdded'));
       } else {
-        Alert.alert('Success', 'Item has been added successfully!');
+        Alert.alert(t('common.success'), t('messages.itemAdded'));
       }
       onSuccess();
     } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : 'Failed to add item';
+      const errorMessage = error instanceof Error ? error.message : t('messages.errorGeneric');
       if (Platform.OS === 'web') {
-        window.alert(`Error: ${errorMessage}`);
+        window.alert(`${t('common.error')}: ${errorMessage}`);
       } else {
-        Alert.alert('Error', errorMessage);
+        Alert.alert(t('common.error'), errorMessage);
       }
     } finally {
       setIsSubmitting(false);
@@ -94,7 +96,7 @@ export const AddItemForm: React.FC<AddItemFormProps> = ({
         <TouchableOpacity onPress={onCancel} style={styles.closeButton}>
           <Ionicons name="close" size={24} color="#E5E7EB" />
         </TouchableOpacity>
-        <Text style={styles.headerTitle}>Add New Item</Text>
+        <Text style={styles.headerTitle}>{t('itemForm.addTitle')}</Text>
         <View style={styles.headerSpacer} />
       </View>
       
@@ -111,7 +113,7 @@ export const AddItemForm: React.FC<AddItemFormProps> = ({
                 <TouchableOpacity
                   style={[
                     styles.typeButton,
-                    value === 'lent' && styles.typeButtonActive,
+                    value === 'lent' && styles.typeButtonActiveLent,
                   ]}
                   onPress={() => onChange('lent')}
                 >
@@ -124,13 +126,13 @@ export const AddItemForm: React.FC<AddItemFormProps> = ({
                     styles.typeButtonText,
                     value === 'lent' && styles.typeButtonTextActive,
                   ]}>
-                    I'm Lending
+                    {t('itemForm.lending')}
                   </Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                   style={[
                     styles.typeButton,
-                    value === 'borrowed' && styles.typeButtonActive,
+                    value === 'borrowed' && styles.typeButtonActiveBorrowed,
                   ]}
                   onPress={() => onChange('borrowed')}
                 >
@@ -143,7 +145,7 @@ export const AddItemForm: React.FC<AddItemFormProps> = ({
                     styles.typeButtonText,
                     value === 'borrowed' && styles.typeButtonTextActive,
                   ]}>
-                    I'm Borrowing
+                    {t('itemForm.borrowing')}
                   </Text>
                 </TouchableOpacity>
               </View>
@@ -154,8 +156,8 @@ export const AddItemForm: React.FC<AddItemFormProps> = ({
             name="itemName"
             render={({ field: { onChange, onBlur, value } }) => (
               <Input
-                label="Item Name"
-                placeholder={itemType === 'lent' ? "What are you lending?" : "What are you borrowing?"}
+                label={t('itemForm.fields.itemName')}
+                placeholder={t('itemForm.fields.itemNamePlaceholder', { action: itemType === 'lent' ? t('itemForm.lending').toLowerCase() : t('itemForm.borrowing').toLowerCase() })}
                 value={value}
                 onChangeText={onChange}
                 onBlur={onBlur}
@@ -170,8 +172,8 @@ export const AddItemForm: React.FC<AddItemFormProps> = ({
             name="borrowerName"
             render={({ field: { onChange, onBlur, value } }) => (
               <Input
-                label={itemType === 'lent' ? "Borrower Name" : "Lender Name"}
-                placeholder={itemType === 'lent' ? "Who is borrowing?" : "Who are you borrowing from?"}
+                label={itemType === 'lent' ? t('itemForm.fields.borrowerName') : t('itemForm.fields.lenderName')}
+                placeholder={itemType === 'lent' ? t('itemForm.fields.borrowerPlaceholder') : t('itemForm.fields.lenderPlaceholder')}
                 value={value}
                 onChangeText={onChange}
                 onBlur={onBlur}
@@ -185,8 +187,8 @@ export const AddItemForm: React.FC<AddItemFormProps> = ({
             name="borrowerContact"
             render={({ field: { onChange, onBlur, value } }) => (
               <Input
-                label="Contact (Optional)"
-                placeholder="Email or phone number"
+                label={t('itemForm.fields.contact')}
+                placeholder={t('itemForm.fields.contactPlaceholder')}
                 value={value || ''}
                 onChangeText={onChange}
                 onBlur={onBlur}
@@ -202,7 +204,7 @@ export const AddItemForm: React.FC<AddItemFormProps> = ({
             name="lentDate"
             render={({ field: { onChange, value } }) => (
               <DatePicker
-                label="Lent Date"
+                label={itemType === 'lent' ? t('itemForm.fields.lentDate') : t('itemForm.fields.borrowedDate')}
                 value={value}
                 onChange={onChange}
                 maximumDate={new Date()}
@@ -216,7 +218,7 @@ export const AddItemForm: React.FC<AddItemFormProps> = ({
             name="expectedReturnDate"
             render={({ field: { onChange, value } }) => (
               <DatePicker
-                label="Expected Return Date"
+                label={t('itemForm.fields.expectedReturn')}
                 value={value}
                 onChange={onChange}
                 minimumDate={new Date()}
@@ -230,8 +232,8 @@ export const AddItemForm: React.FC<AddItemFormProps> = ({
             name="notes"
             render={({ field: { onChange, onBlur, value } }) => (
               <Input
-                label="Notes (Optional)"
-                placeholder="Any additional details"
+                label={t('itemForm.fields.notes')}
+                placeholder={t('itemForm.fields.notesPlaceholder')}
                 value={value || ''}
                 onChangeText={onChange}
                 onBlur={onBlur}
@@ -250,7 +252,7 @@ export const AddItemForm: React.FC<AddItemFormProps> = ({
               loading={isSubmitting}
               style={styles.submitButton}
             >
-              Add Item
+              {t('itemForm.actions.addItem')}
             </Button>
           </View>
         </View>
@@ -319,7 +321,11 @@ const styles = createStyles((theme) => ({
     borderColor: theme.colors.border.default,
     gap: theme.spacing.xs,
   },
-  typeButtonActive: {
+  typeButtonActiveLent: {
+    backgroundColor: theme.colors.primary.green,
+    borderColor: theme.colors.primary.green,
+  },
+  typeButtonActiveBorrowed: {
     backgroundColor: theme.colors.primary.purple,
     borderColor: theme.colors.primary.purple,
   },

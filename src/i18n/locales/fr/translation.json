@@ -1,0 +1,113 @@
+{
+  "app": {
+    "name": "Lend It"
+  },
+  "common": {
+    "cancel": "Annuler",
+    "save": "Enregistrer",
+    "delete": "Supprimer",
+    "edit": "Modifier",
+    "close": "Fermer",
+    "loading": "Chargement...",
+    "error": "Erreur",
+    "success": "Succès",
+    "confirm": "Confirmer",
+    "yes": "Oui",
+    "no": "Non",
+    "by": "par",
+    "to": "à"
+  },
+  "home": {
+    "title": "Lend It",
+    "addItem": "+ Ajouter",
+    "noItems": "Aucun article trouvé",
+    "startAdding": "Commencez par ajouter votre premier article",
+    "addFirstItem": "Ajouter votre premier article",
+    "tryAgain": "Réessayer",
+    "filters": {
+      "all": "Tout",
+      "active": "Actif",
+      "overdue": "En retard",
+      "returned": "Rendu"
+    }
+  },
+  "itemForm": {
+    "addTitle": "Ajouter un nouvel article",
+    "editTitle": "Modifier l'article",
+    "lending": "Je prête",
+    "borrowing": "J'emprunte",
+    "itemLent": "Article que je prête",
+    "itemBorrowed": "Article que j'emprunte",
+    "fields": {
+      "itemName": "Nom de l'article",
+      "itemNamePlaceholder": "Qu'est-ce que vous {{action}} ?",
+      "borrowerName": "Nom de l'emprunteur",
+      "lenderName": "Nom du prêteur",
+      "borrowerPlaceholder": "Qui emprunte ?",
+      "lenderPlaceholder": "À qui empruntez-vous ?",
+      "contact": "Contact (Optionnel)",
+      "contactPlaceholder": "Email ou numéro de téléphone",
+      "lentDate": "Date de prêt",
+      "borrowedDate": "Date d'emprunt",
+      "expectedReturn": "Date de retour prévue",
+      "notes": "Notes (Optionnel)",
+      "notesPlaceholder": "Détails supplémentaires"
+    },
+    "actions": {
+      "addItem": "Ajouter l'article",
+      "saveChanges": "Enregistrer les modifications"
+    }
+  },
+  "itemDetail": {
+    "title": "Détails de l'article",
+    "itemLent": "Article prêté",
+    "itemBorrowed": "Article emprunté",
+    "borrower": "Emprunteur",
+    "lender": "Prêteur",
+    "contact": "Contact",
+    "lentDate": "Date de prêt",
+    "borrowedDate": "Date d'emprunt",
+    "expectedReturn": "Retour prévu",
+    "actualReturn": "Retour effectif",
+    "notes": "Notes",
+    "actions": {
+      "markReturned": "Marquer comme rendu",
+      "deleteItem": "Supprimer l'article",
+      "confirmReturn": "Confirmer le retour",
+      "confirmDelete": "Confirmer la suppression",
+      "deleteMessage": "Êtes-vous sûr de vouloir supprimer \"{{itemName}}\" ?",
+      "returnMessage": "Marquer \"{{itemName}}\" comme rendu {{direction}} {{person}} ?"
+    }
+  },
+  "settings": {
+    "title": "Paramètres",
+    "language": "Langue",
+    "selectLanguage": "Sélectionner la langue",
+    "languages": {
+      "en": "English",
+      "fr": "Français",
+      "de": "Deutsch",
+      "es": "Español",
+      "nl": "Nederlands"
+    }
+  },
+  "status": {
+    "active": "Actif",
+    "overdue": "En retard",
+    "dueSoon": "Bientôt dû",
+    "returned": "Rendu"
+  },
+  "validation": {
+    "required": "{{field}} est requis",
+    "minLength": "{{field}} doit contenir au moins {{min}} caractères",
+    "futureDate": "{{field}} ne peut pas être dans le futur",
+    "afterDate": "{{field}} doit être après {{date}}"
+  },
+  "messages": {
+    "itemAdded": "L'article a été ajouté avec succès !",
+    "itemUpdated": "L'article a été mis à jour avec succès !",
+    "itemDeleted": "L'article a été supprimé avec succès !",
+    "itemReturned": "L'article a été marqué comme rendu !",
+    "errorGeneric": "Une erreur s'est produite. Veuillez réessayer."
+  }
+}

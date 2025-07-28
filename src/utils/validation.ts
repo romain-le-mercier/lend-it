@@ -1,38 +1,39 @@
 import * as yup from 'yup';
+import i18n from '@/i18n';
 
 export const createLentItemSchema = yup.object({
   itemName: yup
     .string()
     .trim()
-    .required('Item name is required')
-    .min(2, 'Item name must be at least 2 characters'),
+    .required(() => i18n.t('validation.required', { field: i18n.t('itemForm.fields.itemName') }))
+    .min(2, () => i18n.t('validation.minLength', { field: i18n.t('itemForm.fields.itemName'), min: 2 })),
   borrowerName: yup
     .string()
     .trim()
-    .required('Borrower name is required')
-    .min(2, 'Borrower name must be at least 2 characters'),
+    .required(() => i18n.t('validation.required', { field: i18n.t('itemForm.fields.borrowerName') }))
+    .min(2, () => i18n.t('validation.minLength', { field: i18n.t('itemForm.fields.borrowerName'), min: 2 })),
   borrowerContact: yup.string().trim().optional(),
   lentDate: yup
     .date()
-    .required('Lent date is required')
-    .max(new Date(), 'Lent date cannot be in the future'),
+    .required(() => i18n.t('validation.required', { field: i18n.t('itemForm.fields.lentDate') }))
+    .max(new Date(), () => i18n.t('validation.futureDate', { field: i18n.t('itemForm.fields.lentDate') })),
   expectedReturnDate: yup
     .date()
-    .required('Expected return date is required')
-    .min(yup.ref('lentDate'), 'Return date must be after lent date'),
+    .required(() => i18n.t('validation.required', { field: i18n.t('itemForm.fields.expectedReturn') }))
+    .min(yup.ref('lentDate'), () => i18n.t('validation.afterDate', { field: i18n.t('itemForm.fields.expectedReturn'), date: i18n.t('itemForm.fields.lentDate') })),
   notes: yup.string().trim().optional(),
-  itemType: yup.string().oneOf(['lent', 'borrowed'] as const).required('Item type is required'),
+  itemType: yup.string().oneOf(['lent', 'borrowed'] as const).required(() => i18n.t('validation.required', { field: 'Item type' })),
 });
 
 export const updateLentItemSchema = yup.object({
   itemName: yup
     .string()
     .trim()
-    .min(2, 'Item name must be at least 2 characters'),
+    .min(2, () => i18n.t('validation.minLength', { field: i18n.t('itemForm.fields.itemName'), min: 2 })),
   borrowerName: yup
     .string()
     .trim()
-    .min(2, 'Borrower name must be at least 2 characters'),
+    .min(2, () => i18n.t('validation.minLength', { field: i18n.t('itemForm.fields.borrowerName'), min: 2 })),
   borrowerContact: yup.string().trim().optional(),
   expectedReturnDate: yup.date(),
   notes: yup.string().trim().optional(),

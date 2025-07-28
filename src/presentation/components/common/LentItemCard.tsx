@@ -5,7 +5,8 @@ import {
   TouchableOpacity,
   Platform,
 } from 'react-native';
-import { format } from 'date-fns';
+import { format, DATE_FORMATS } from '@/utils/dateFormat';
+import { useTranslation } from 'react-i18next';
 import { createStyles } from '@/utils/theme';
 import { StatusBadge } from './StatusBadge';
 import { ILentItem } from '@/domain/entities/LentItem';
@@ -20,10 +21,15 @@ export const LentItemCard: React.FC<LentItemCardProps> = ({
   item,
   onPress,
 }) => {
+  const { t } = useTranslation();
 
   return (
     <TouchableOpacity
-      style={[styles.container, item.itemType === 'borrowed' && styles.borrowedContainer]}
+      style={[
+        styles.container,
+        item.itemType === 'borrowed' && styles.borrowedContainer,
+        item.itemType === 'lent' && styles.lentContainer
+      ]}
       onPress={onPress}
       activeOpacity={0.7}
     >
@@ -48,20 +54,20 @@ export const LentItemCard: React.FC<LentItemCardProps> = ({
         <View style={styles.detailRow}>
           <Ionicons name="person-outline" size={16} color="#64748B" style={styles.detailIcon} />
           <Text style={styles.borrowerName}>
-            {item.itemType === 'lent' ? `To: ${item.borrowerName}` : `From: ${item.borrowerName}`}
+            {item.itemType === 'lent' ? `${t('itemDetail.borrower')}: ${item.borrowerName}` : `${t('itemDetail.lender')}: ${item.borrowerName}`}
           </Text>
         </View>
         <View style={styles.detailRow}>
           <Ionicons name="calendar-outline" size={16} color="#64748B" style={styles.detailIcon} />
           <Text style={styles.date}>
-            {format(item.lentDate, 'MMM dd')} → {format(item.expectedReturnDate, 'MMM dd, yyyy')}
+            {format(item.lentDate, DATE_FORMATS.SHORT)} → {format(item.expectedReturnDate, DATE_FORMATS.MEDIUM)}
           </Text>
         </View>
         {item.actualReturnDate ? (
           <View style={styles.detailRow}>
             <Ionicons name="checkmark-circle-outline" size={16} color="#22C55E" style={styles.detailIcon} />
             <Text style={styles.returnedDate}>
-              Returned {format(item.actualReturnDate, 'MMM dd, yyyy')}
+              {t('status.returned')} {format(item.actualReturnDate, DATE_FORMATS.MEDIUM)}
             </Text>
           </View>
         ) : null}
@@ -96,6 +102,10 @@ const styles = createStyles((theme: any) => ({
   borrowedContainer: {
     borderLeftWidth: 3,
     borderLeftColor: theme.colors.primary.purple,
+  },
+  lentContainer: {
+    borderLeftWidth: 3,
+    borderLeftColor: theme.colors.primary.green,
   },
   header: {
     marginBottom: theme.spacing.xs,

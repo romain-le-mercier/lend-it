@@ -5,7 +5,7 @@ import {
   TouchableOpacity,
   Platform,
 } from 'react-native';
-import { format } from 'date-fns';
+import { format, DATE_FORMATS } from '@/utils/dateFormat';
 import { createStyles } from '@/utils/theme';
 import { WebDateInput } from './WebDateInput';
 
@@ -67,7 +67,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({
         onPress={showDatePicker}
         activeOpacity={0.7}
       >
-        <Text style={styles.dateText}>{format(value, 'MMM dd, yyyy')}</Text>
+        <Text style={styles.dateText}>{format(value, DATE_FORMATS.MEDIUM)}</Text>
       </TouchableOpacity>
       {error && <Text style={styles.error}>{error}</Text>}
       

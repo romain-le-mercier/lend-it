@@ -1,5 +1,6 @@
 import { StyleSheet } from 'react-native';
 import { theme } from '@/constants/theme';
+import i18n from 'i18next';
 
 export const createStyles = <T extends StyleSheet.NamedStyles<T>>(
   styles: T | ((theme: typeof theme) => T)
@@ -26,12 +27,12 @@ export const getStatusColor = (status: 'returned' | 'overdue' | 'due_soon' | 'ac
 export const getStatusLabel = (status: 'returned' | 'overdue' | 'due_soon' | 'active') => {
   switch (status) {
     case 'returned':
-      return 'Returned';
+      return i18n.t('status.returned');
     case 'overdue':
-      return 'Overdue';
+      return i18n.t('status.overdue');
     case 'due_soon':
-      return 'Due Soon';
+      return i18n.t('status.dueSoon');
     case 'active':
-      return 'Active';
+      return i18n.t('status.active');
   }
 };

@@ -10,8 +10,9 @@ import {
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation, useRoute, RouteProp, useFocusEffect } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { format } from 'date-fns';
+import { format, DATE_FORMATS } from '@/utils/dateFormat';
 import { Ionicons } from '@expo/vector-icons';
+import { useTranslation } from 'react-i18next';
 import { createStyles } from '@/utils/theme';
 import { Button } from '@/presentation/components/common/Button';
 import { StatusBadge } from '@/presentation/components/common/StatusBadge';
@@ -31,6 +32,7 @@ export const ItemDetailScreen: React.FC = () => {
   const route = useRoute<ItemDetailScreenRouteProp>();
   const navigation = useNavigation<NavigationProp>();
   const insets = useSafeAreaInsets();
+  const { t } = useTranslation();
   const initialItem = route.params.item;
   const [item, setItem] = useState<ILentItem>(initialItem);
   const [isDeleting, setIsDeleting] = useState(false);
@@ -71,18 +73,21 @@ export const ItemDetailScreen: React.FC = () => {
   };
 
   const handleMarkReturned = async () => {
-    const message = item.itemType === 'lent' 
-      ? `Mark "${item.itemName}" as returned by ${item.borrowerName}?`
-      : `Mark "${item.itemName}" as returned to ${item.borrowerName}?`;
+    const direction = item.itemType === 'lent' ? t('common.by') : t('common.to');
+    const message = t('itemDetail.actions.returnMessage', {
+      itemName: item.itemName,
+      direction: direction || '',
+      person: item.borrowerName
+    });
 
     if (Platform.OS === 'web') {
       if (window.confirm(message)) {
         await performMarkReturned();
       }
     } else {
-      Alert.alert('Confirm Return', message, [
-        { text: 'Cancel', style: 'cancel' },
-        { text: 'Yes, Mark Returned', onPress: performMarkReturned },
+      Alert.alert(t('itemDetail.actions.confirmReturn'), message, [
+        { text: t('common.cancel'), style: 'cancel' },
+        { text: t('common.yes') + ', ' + t('itemDetail.actions.markReturned'), onPress: performMarkReturned },
       ]);
     }
   };
@@ -95,11 +100,11 @@ export const ItemDetailScreen: React.FC = () => {
       // Optionally go back after marking as returned
       // navigation.goBack();
     } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : 'Failed to mark item as returned';
+      const errorMessage = error instanceof Error ? error.message : t('messages.errorGeneric');
       if (Platform.OS === 'web') {
-        window.alert(`Error: ${errorMessage}`);
+        window.alert(`${t('common.error')}: ${errorMessage}`);
       } else {
-        Alert.alert('Error', errorMessage);
+        Alert.alert(t('common.error'), errorMessage);
       }
     } finally {
       setIsReturning(false);
@@ -107,16 +112,16 @@ export const ItemDetailScreen: React.FC = () => {
   };
 
   const handleDelete = () => {
-    const message = `Are you sure you want to delete "${item.itemName}"?`;
+    const message = t('itemDetail.actions.deleteMessage', { itemName: item.itemName });
     
     if (Platform.OS === 'web') {
       if (window.confirm(message)) {
         performDelete();
       }
     } else {
-      Alert.alert('Confirm Delete', message, [
-        { text: 'Cancel', style: 'cancel' },
-        { text: 'Delete', style: 'destructive', onPress: performDelete },
+      Alert.alert(t('itemDetail.actions.confirmDelete'), message, [
+        { text: t('common.cancel'), style: 'cancel' },
+        { text: t('common.delete'), style: 'destructive', onPress: performDelete },
       ]);
     }
   };
@@ -127,11 +132,11 @@ export const ItemDetailScreen: React.FC = () => {
       await lentItemRepository.delete(item.id);
       navigation.goBack();
     } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : 'Failed to delete item';
+      const errorMessage = error instanceof Error ? error.message : t('messages.errorGeneric');
       if (Platform.OS === 'web') {
-        window.alert(`Error: ${errorMessage}`);
+        window.alert(`${t('common.error')}: ${errorMessage}`);
       } else {
-        Alert.alert('Error', errorMessage);
+        Alert.alert(t('common.error'), errorMessage);
       }
     } finally {
       setIsDeleting(false);
@@ -144,7 +149,7 @@ export const ItemDetailScreen: React.FC = () => {
         <TouchableOpacity onPress={handleBack} style={styles.backButton}>
           <Ionicons name="arrow-back" size={24} color="#E5E7EB" />
         </TouchableOpacity>
-        <Text style={styles.headerTitle}>Item Details</Text>
+        <Text style={styles.headerTitle}>{t('itemDetail.title')}</Text>
         <TouchableOpacity onPress={handleEdit} style={styles.editButton}>
           <Ionicons name="pencil" size={24} color="#E5E7EB" />
         </TouchableOpacity>
@@ -159,7 +164,7 @@ export const ItemDetailScreen: React.FC = () => {
               color={item.itemType === 'lent' ? '#22C55E' : '#A855F7'} 
             />
             <Text style={styles.typeText}>
-              {item.itemType === 'lent' ? 'Item Lent' : 'Item Borrowed'}
+              {item.itemType === 'lent' ? t('itemDetail.itemLent') : t('itemDetail.itemBorrowed')}
             </Text>
           </View>
           
@@ -172,7 +177,7 @@ export const ItemDetailScreen: React.FC = () => {
             <Ionicons name="person" size={20} color="#64748B" style={styles.detailIcon} />
             <View style={styles.detailContent}>
               <Text style={styles.detailLabel}>
-                {item.itemType === 'lent' ? 'Borrower' : 'Lender'}
+                {item.itemType === 'lent' ? t('itemDetail.borrower') : t('itemDetail.lender')}
               </Text>
               <Text style={styles.detailValue}>{item.borrowerName}</Text>
             </View>
@@ -182,7 +187,7 @@ export const ItemDetailScreen: React.FC = () => {
             <View style={styles.detailRow}>
               <Ionicons name="call" size={20} color="#64748B" style={styles.detailIcon} />
               <View style={styles.detailContent}>
-                <Text style={styles.detailLabel}>Contact</Text>
+                <Text style={styles.detailLabel}>{t('itemDetail.contact')}</Text>
                 <Text style={styles.detailValue}>{item.borrowerContact}</Text>
               </View>
             </View>
@@ -192,10 +197,10 @@ export const ItemDetailScreen: React.FC = () => {
             <Ionicons name="calendar" size={20} color="#64748B" style={styles.detailIcon} />
             <View style={styles.detailContent}>
               <Text style={styles.detailLabel}>
-                {item.itemType === 'lent' ? 'Lent Date' : 'Borrowed Date'}
+                {item.itemType === 'lent' ? t('itemDetail.lentDate') : t('itemDetail.borrowedDate')}
               </Text>
               <Text style={styles.detailValue}>
-                {format(item.lentDate, 'MMMM dd, yyyy')}
+                {format(item.lentDate, DATE_FORMATS.LONG)}
               </Text>
             </View>
           </View>
@@ -203,9 +208,9 @@ export const ItemDetailScreen: React.FC = () => {
           <View style={styles.detailRow}>
             <Ionicons name="time" size={20} color="#64748B" style={styles.detailIcon} />
             <View style={styles.detailContent}>
-              <Text style={styles.detailLabel}>Expected Return</Text>
+              <Text style={styles.detailLabel}>{t('itemDetail.expectedReturn')}</Text>
               <Text style={styles.detailValue}>
-                {format(item.expectedReturnDate, 'MMMM dd, yyyy')}
+                {format(item.expectedReturnDate, DATE_FORMATS.LONG)}
               </Text>
             </View>
           </View>
@@ -214,9 +219,9 @@ export const ItemDetailScreen: React.FC = () => {
             <View style={styles.detailRow}>
               <Ionicons name="checkmark-circle" size={20} color="#22C55E" style={styles.detailIcon} />
               <View style={styles.detailContent}>
-                <Text style={styles.detailLabel}>Actual Return</Text>
+                <Text style={styles.detailLabel}>{t('itemDetail.actualReturn')}</Text>
                 <Text style={[styles.detailValue, styles.returnedValue]}>
-                  {format(item.actualReturnDate, 'MMMM dd, yyyy')}
+                  {format(item.actualReturnDate, DATE_FORMATS.LONG)}
                 </Text>
               </View>
             </View>
@@ -225,7 +230,7 @@ export const ItemDetailScreen: React.FC = () => {
 
         {item.notes && (
           <View style={styles.section}>
-            <Text style={styles.sectionTitle}>Notes</Text>
+            <Text style={styles.sectionTitle}>{t('itemDetail.notes')}</Text>
             <Text style={styles.notes}>{item.notes}</Text>
           </View>
         )}
@@ -239,7 +244,7 @@ export const ItemDetailScreen: React.FC = () => {
               style={styles.actionButton}
             >
               <Ionicons name="checkmark-circle-outline" size={20} color="#FFFFFF" />
-              {'  '}Mark as Returned
+              {'  '}{t('itemDetail.actions.markReturned')}
             </Button>
           )}
           
@@ -250,7 +255,7 @@ export const ItemDetailScreen: React.FC = () => {
             style={styles.actionButton}
           >
             <Ionicons name="trash-outline" size={20} color="#FFFFFF" />
-            {'  '}Delete Item
+            {'  '}{t('itemDetail.actions.deleteItem')}
           </Button>
         </View>
       </ScrollView>

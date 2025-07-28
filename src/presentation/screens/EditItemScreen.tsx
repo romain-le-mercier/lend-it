@@ -22,6 +22,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { ILentItem } from '@/domain/entities/LentItem';
+import { useTranslation } from 'react-i18next';
 
 type RootStackParamList = {
   Home: undefined;
@@ -36,6 +37,7 @@ export const EditItemScreen: React.FC = () => {
   const route = useRoute<EditItemScreenRouteProp>();
   const navigation = useNavigation<NavigationProp>();
   const insets = useSafeAreaInsets();
+  const { t } = useTranslation();
   const { item } = route.params;
   const [isSubmitting, setIsSubmitting] = useState(false);
   const updateLentItemUseCase = container.getUpdateLentItemUseCase();
@@ -70,17 +72,17 @@ export const EditItemScreen: React.FC = () => {
       await updateLentItemUseCase.execute(item.id, updateData);
       
       if (Platform.OS === 'web') {
-        console.log('Success: Item has been updated successfully!');
+        console.log(t('common.success') + ': ' + t('messages.itemUpdated'));
       } else {
-        Alert.alert('Success', 'Item has been updated successfully!');
+        Alert.alert(t('common.success'), t('messages.itemUpdated'));
       }
       navigation.goBack();
     } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : 'Failed to update item';
+      const errorMessage = error instanceof Error ? error.message : t('messages.errorGeneric');
       if (Platform.OS === 'web') {
-        window.alert(`Error: ${errorMessage}`);
+        window.alert(`${t('common.error')}: ${errorMessage}`);
       } else {
-        Alert.alert('Error', errorMessage);
+        Alert.alert(t('common.error'), errorMessage);
       }
     } finally {
       setIsSubmitting(false);
@@ -100,7 +102,7 @@ export const EditItemScreen: React.FC = () => {
         <TouchableOpacity onPress={handleCancel} style={styles.closeButton}>
           <Ionicons name="close" size={24} color="#E5E7EB" />
         </TouchableOpacity>
-        <Text style={styles.headerTitle}>Edit Item</Text>
+        <Text style={styles.headerTitle}>{t('itemForm.editTitle')}</Text>
         <View style={styles.headerSpacer} />
       </View>
       
@@ -116,7 +118,7 @@ export const EditItemScreen: React.FC = () => {
               color={item.itemType === 'lent' ? '#22C55E' : '#A855F7'} 
             />
             <Text style={styles.typeText}>
-              {item.itemType === 'lent' ? "Item I'm Lending" : "Item I'm Borrowing"}
+              {item.itemType === 'lent' ? t('itemForm.itemLent') : t('itemForm.itemBorrowed')}
             </Text>
           </View>
 
@@ -125,8 +127,8 @@ export const EditItemScreen: React.FC = () => {
             name="itemName"
             render={({ field: { onChange, onBlur, value } }) => (
               <Input
-                label="Item Name"
-                placeholder="What is being exchanged?"
+                label={t('itemForm.fields.itemName')}
+                placeholder={t('itemForm.fields.itemNamePlaceholder', { action: item.itemType === 'lent' ? t('itemForm.lending').toLowerCase() : t('itemForm.borrowing').toLowerCase() })}
                 value={value}
                 onChangeText={onChange}
                 onBlur={onBlur}
@@ -140,8 +142,8 @@ export const EditItemScreen: React.FC = () => {
             name="borrowerName"
             render={({ field: { onChange, onBlur, value } }) => (
               <Input
-                label={item.itemType === 'lent' ? "Borrower Name" : "Lender Name"}
-                placeholder={item.itemType === 'lent' ? "Who is borrowing?" : "Who are you borrowing from?"}
+                label={item.itemType === 'lent' ? t('itemForm.fields.borrowerName') : t('itemForm.fields.lenderName')}
+                placeholder={item.itemType === 'lent' ? t('itemForm.fields.borrowerPlaceholder') : t('itemForm.fields.lenderPlaceholder')}
                 value={value}
                 onChangeText={onChange}
                 onBlur={onBlur}
@@ -155,8 +157,8 @@ export const EditItemScreen: React.FC = () => {
             name="borrowerContact"
             render={({ field: { onChange, onBlur, value } }) => (
               <Input
-                label="Contact (Optional)"
-                placeholder="Email or phone number"
+                label={t('itemForm.fields.contact')}
+                placeholder={t('itemForm.fields.contactPlaceholder')}
                 value={value || ''}
                 onChangeText={onChange}
                 onBlur={onBlur}
@@ -172,7 +174,7 @@ export const EditItemScreen: React.FC = () => {
             name="expectedReturnDate"
             render={({ field: { onChange, value } }) => (
               <DatePicker
-                label="Expected Return Date"
+                label={t('itemForm.fields.expectedReturn')}
                 value={value}
                 onChange={onChange}
                 minimumDate={new Date()}
@@ -186,8 +188,8 @@ export const EditItemScreen: React.FC = () => {
             name="notes"
             render={({ field: { onChange, onBlur, value } }) => (
               <Input
-                label="Notes (Optional)"
-                placeholder="Any additional details"
+                label={t('itemForm.fields.notes')}
+                placeholder={t('itemForm.fields.notesPlaceholder')}
                 value={value || ''}
                 onChangeText={onChange}
                 onBlur={onBlur}
@@ -205,7 +207,7 @@ export const EditItemScreen: React.FC = () => {
               onPress={handleCancel}
               style={styles.button}
             >
-              Cancel
+              {t('common.cancel')}
             </Button>
             <Button
               variant="primary"
@@ -213,7 +215,7 @@ export const EditItemScreen: React.FC = () => {
               loading={isSubmitting}
               style={styles.button}
             >
-              Save Changes
+              {t('itemForm.actions.saveChanges')}
             </Button>
           </View>
         </View>
